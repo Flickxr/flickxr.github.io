@@ -11,7 +11,7 @@ from tkinter import filedialog
 import webbrowser 
 
 #UPDATE LOG
-# v1.0.6 adds the welcome message working, but the colour is not correctly set 1/4/23
+# v1.0.7 keywords are now used for responses and unknown input is now stored for moderation
 
 # Define the welcome message
 WELCOME_MESSAGE = "Hello! I'm Lixun, How can I assist you today?"
@@ -21,38 +21,40 @@ def handle_input():
     user_input = input_field.get().lower() # Convert input to lowercase
     input_field.delete(0, tk.END)  # Clear input field
 
-
-    # if 'python' in input do something (try later)
     responses = {
         "hello": ["Hello there!", "Hi!", "Greetings!", "What's Up?", "Howdy!", "Bonjour!"],
         "hi": ["Hello there!", "Hi!", "Greetings!", "What's Up?", "Howdy!", "Bonjour!"],
         "hey": ["Hello there!", "Hi!", "Greetings!", "What's Up?", "Howdy!", "Bonjour!"],
-        "how are you?": ["I'm doing well thank you!", "Not bad, thank you for asking!", "I'm fine, how are you?" ],
-        "hows it going?": ["I'm doing well thank you!", "Not bad, thank you for asking!", "I'm fine, how are you?" ],
         "goodbye": ["Goodbye!", "See you later!", "Take care!"],
-        "what is the weather?": ["Follow this link for the Bureau Of Meteorology!: http://www.bom.gov.au/places/vic/ringwood/"],
-        "what time is it?": ["The current time is " + datetime.datetime.now().strftime("%I:%M %p"), "It's " + datetime.datetime.now().strftime("%I:%M %p"), "Right now it's " + datetime.datetime.now().strftime("%I:%M %p")],
-        "who are you?": ["I am Linux AI Bot, created by Flickxr! I am programmed to answer any questions and provide any useful information you may require!"],
-        "what is your birthday?": ["My birthday is the 26th of March, 2023."],
-        "what is your favourite colour?": ["My favourite colour is Blue!"],
-        "how do you make chloroform?": ["Chloroform is prepared in the laboratory by heating ethanol with bleaching powder. The reaction is called the haloalkane reaction."],
+        "weather": ["Follow this link for the Bureau Of Meteorology!: http://www.bom.gov.au/places/vic/ringwood/"],
+        "time": ["The current time is " + datetime.datetime.now().strftime("%I:%M %p"), "It's " + datetime.datetime.now().strftime("%I:%M %p"), "Right now it's " + datetime.datetime.now().strftime("%I:%M %p")],
+        "who": ["I am Linux AI Bot, created by Flickxr! I am programmed to answer any questions and provide any useful information you may require!"],
+        "birthday": ["My birthday is the 26th of March, 2023."],
+        "colour": ["My favourite colour is Blue!"],
+        "chloroform": ["Chloroform is prepared in the laboratory by heating ethanol with bleaching powder. The reaction is called the haloalkane reaction."],
         "shit": ["-Gasp- that is a naughty word!"],
         "frick": ["-Gasp- that is a naughty word!"],
     }
 
-# Check if input is a math equation
-    try:
-        result = eval(user_input)
-        response = f"The answer is {result}"
-    except:
+    # Split user input into individual words
+    words = user_input.split()
 
-        # Check if input is in responses, otherwise use default response
-        if user_input in responses:
-            response = random.choice(responses[user_input])
-        else:
-            response = "Sorry, I couldn't understand what you said!"
+    # Check if any of the words are in the responses dictionary
+    keyword = next((word for word in words if word in responses), None)
+
+    # If a keyword is found, use the corresponding response
+    if keyword:
+        response = random.choice(responses[keyword])
+    else:
+        response = f"I'm not sure what you mean by '{user_input}'."
+        responses[user_input] = [response]
+
+# Save unknown user input to a file
+        with open("unknown_input.txt", "a") as file:
+                file.write(user_input + "\n")
     input_text = f"You: {user_input}\n"
     response_text = f"Lix.ai: {response}\n\n"
+
     chat_history_text.configure(state="normal")
     chat_history_text.insert(tk.END, input_text)
     for char in response_text:
@@ -60,6 +62,7 @@ def handle_input():
         chat_history_text.update()
         time.sleep(0.05)
     chat_history_text.configure(state="disabled")
+
 
 # Define 'Open_link' statement
 def open_link():
@@ -70,16 +73,21 @@ def open_link():
 # Create Main Window
 root = tk.Tk()
 root.title("Lix.AI v1.0.6")
-root.withdraw()
-root.update_idletasks()
+root.configure(bg="#36393F")
+root.resizable(False, False)
+
+# Set window size and position
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 window_width = 800
 window_height = 600
-root.configure(bg="#36393F")
 window_x = int((screen_width - window_width) / 2)
 window_y = int((screen_height - window_height) / 2)
 root.geometry(f"{window_width}x{window_height}+{window_x}+{window_y}")
+
+# Create input and output frames
+input_frame = tk.Frame(root, bg="#202225", padx=10, pady=10)
+output_frame = tk.Frame(root, bg="#2F3136", padx=10, pady=10)
 
 # Create the button and pack it onto the window
 link_button = tk.Button(root, text="Update Log", command=open_link)
