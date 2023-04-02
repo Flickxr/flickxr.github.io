@@ -1,96 +1,118 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>My GitHub Site</title>
+    <title>My Sci-Fi Themed Website</title>
     <style>
       body {
-        background-color: #F1F8FE;
-        font-family: Arial, sans-serif;
+        background-color: #1f2833;
+        font-family: 'Roboto', sans-serif;
         font-size: 16px;
-        margin: 0;
-        padding: 0;
+        color: #c5c6c7;
+        line-height: 1.5;
       }
-      header {
-        background-color: #4285F4;
-        color: white;
-        display: flex;
-        align-items: center;
-        height: 60px;
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', sans-serif;
+        color: #66fcf1;
+        text-align: center;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
         padding: 0 20px;
       }
-      header h1 {
-        margin: 0;
-        font-size: 24px;
-        font-weight: normal;
-        flex-grow: 1;
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 2px solid #45a29e;
       }
-      nav {
-        background-color: #F1F8FE;
-        border-top: 1px solid #E0E0E0;
-        border-bottom: 1px solid #E0E0E0;
+      .header img {
+        max-width: 100%;
+        height: auto;
+      }
+      .nav {
         display: flex;
         justify-content: center;
-        height: 40px;
+        align-items: center;
       }
-      nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-      }
-      nav li {
+      .nav a {
         margin: 0 10px;
-      }
-      nav a {
-        color: #4285F4;
+        color: #c5c6c7;
         text-decoration: none;
         font-weight: bold;
-        transition: all 0.2s ease-in-out;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
       }
-      nav a:hover {
-        color: #0D47A1;
+      .nav a:hover {
+        color: #66fcf1;
       }
-      main {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 0 20px;
+      .content {
+        padding: 40px 0;
       }
-      h2 {
-        font-size: 28px;
-        font-weight: normal;
-        color: #4285F4;
-      }
-      p {
-        line-height: 1.5;
-        margin: 20px 0;
-      }
-      footer {
-        background-color: #E0E0E0;
-        color: #666666;
+      .footer {
+        background-color: #0b0c10;
+        color: #c5c6c7;
+        padding: 20px 0;
         text-align: center;
-        padding: 20px;
+      }
+      .footer a {
+        color: #66fcf1;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      .footer a:hover {
+        color: #c5c6c7;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>My GitHub Site</h1>
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
     </header>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-    <main>
-      <h2>Welcome to My GitHub Site</h2>
-      <p>This is a modern-looking website built for my GitHub account. It has a light blue color scheme and uses flexbox for layout.</p>
+    <main class="content">
+      <div class="container">
+        <h1>Home Of Lixun AI</h1>
+        <p>
+      </div>
     </main>
-    <footer>
-      &copy; 2023 My GitHub Site. All rights reserved.
-    </footer>
-  </body>
+    <footer class="footer">
+      <div
+      <html>
+<head>
+	<title>Button to run Python script</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Click the button to run the Python script</h1>
+	<button id="run-script">Run Script</button>
+	<div id="output"></div>
+
+	<script>
+		$(document).ready(function() {
+			$('#run-script').click(function() {
+				$.ajax({
+					type: 'GET',
+					url: 'kurtis/desktop/coding/main_window.py',
+					dataType: 'text',
+					success: function(data) {
+						$('#output').html(data);
+					},
+					error: function(xhr, status, error) {
+						console.error(status + ": " + error);
+					}
+				});
+			});
+		});
+	</script>
+</body>
 </html>
