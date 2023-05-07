@@ -102,7 +102,7 @@
 			$('#run-script').click(function() {
 				$.ajax({
 					type: 'GET',
-					url: 'kurtis/desktop/coding/main_window.py',
+					url: 'kurtis/desktop/coding/main_window.py', <!-- This is linking back to your own computer, that is why it is not working.-->
 					dataType: 'text',
 					success: function(data) {
 						$('#output').html(data);
